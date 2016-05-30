@@ -32,11 +32,7 @@ def writeDiary():
 	tpfile = path + r'/.tpfile'
 	editFile = 'vi %s' % (tpfile) 
 	os.system(editFile)
-	if os.path.exists(filename):
-		originDiary=decrypt(filename)
-	else:
-		os.system('touch %s/.unlocked_diary' % (path))
-		originDiary = 'unlocked_diary'
+	originDiary =path + r'/.unlocked_diary'
 	if os.path.exists(tpfile):
 		open(originDiary, 'a').writelines(open(tpfile, 'r').readlines())	
 		os.system('rm %s*' % (tpfile))
@@ -61,7 +57,10 @@ def main():
 	path = '/home/' + myname + '/diary'
 	global filename
 	filename = path + '/' + myname + 'Diary'
-	decrypt(filename)
+	if os.path.exists(filename):
+		decrypt(filename)
+	else:
+		os.system('touch %s/.unlocked_diary' % (path))
 	menu()
 
 def encrypt(originDiary):
