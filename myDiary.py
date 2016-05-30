@@ -29,13 +29,13 @@ def menu():
 def writeDiary():
 	global path
 	global filename
-	tpfile = path + r'/.tpfile'
-	editFile = 'vi %s' % (tpfile) 
+	tempfile = path + r'/.tempfile'
+	editFile = 'vi %s' % (tempfile) 
 	os.system(editFile)
 	originDiary =path + r'/.unlocked_diary'
-	if os.path.exists(tpfile):
-		open(originDiary, 'a').writelines(open(tpfile, 'r').readlines())	
-		os.system('rm %s*' % (tpfile))
+	if os.path.exists(tempfile):
+		open(originDiary, 'a').writelines(open(tempfile, 'r').readlines())	
+		os.system('rm %s*' % (tempfile))
 	encrypt(originDiary)
 	os.system('rm %s*' % (originDiary))
 	
