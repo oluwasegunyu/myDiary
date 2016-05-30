@@ -35,8 +35,8 @@ def writeDiary():
 	if os.path.exists(filename):
 		originDiary=decrypt(filename)
 	else:
-		os.system('touch %s/.temfile' % (path))
-		originDiary = 'temfile'
+		os.system('touch %s/.unlocked_diary' % (path))
+		originDiary = 'unlocked_diary'
 	if os.path.exists(tpfile):
 		open(originDiary, 'a').writelines(open(tpfile, 'r').readlines())	
 		os.system('rm %s*' % (tpfile))
@@ -74,12 +74,12 @@ def encrypt(originDiary):
 def decrypt(filename):
 	global path
 	global password
-	tempfile = path + r'/.tempfile'
-	if os.system('openssl enc -des -d -a -in %s -out %s -k %s 1>/dev/null 2>&1' % (filename, tempfile, password)):
+	unlocked_diary = path + r'/.unlocked_diary'
+	if os.system('openssl enc -des -d -a -in %s -out %s -k %s 1>/dev/null 2>&1' % (filename, unlocked_diary, password)):
 		print 'bad decrypt'
 		exit(0)
 	else:
-		return tempfile
+		return unlocked_diary
 
 def changePassword():
 	global password
